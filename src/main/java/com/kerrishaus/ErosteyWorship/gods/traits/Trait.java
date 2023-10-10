@@ -57,6 +57,8 @@ public abstract class Trait implements Listener
 
     public boolean praisePlayer(Player player)
     {
+        System.out.println("Praising player");
+
         player.sendMessage(god.name + " is pleased with your actions.");
 
         return true;
@@ -64,6 +66,8 @@ public abstract class Trait implements Listener
 
     public boolean rewardPlayer(Player player)
     {
+        System.out.println("Rewarding player");
+
         player.sendMessage(god.name + " is very pleased with your actions.");
 
         return true;

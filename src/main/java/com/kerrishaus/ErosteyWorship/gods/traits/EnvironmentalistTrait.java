@@ -2,10 +2,14 @@ package com.kerrishaus.ErosteyWorship.gods.traits;
 
 import com.kerrishaus.ErosteyWorship.events.PlayerPunishEvent;
 import com.kerrishaus.ErosteyWorship.gods.God;
+import org.bukkit.entity.Ageable;
 import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.block.BlockGrowEvent;
+import org.bukkit.event.entity.EntityBreedEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 
@@ -38,6 +42,42 @@ public class EnvironmentalistTrait extends Trait
         else
             this.punishPlayer(killer);
     }
+
+    /*
+    @EventHandler
+    public void onPlayerInteract(PlayerInteractEvent event)
+    {
+        // Only want ageable blocks.
+        if (!(event.getClickedBlock() instanceof Ageable))
+            return;
+
+    }
+    */
+
+    @EventHandler
+    public void onEntityBreedEvent(EntityBreedEvent event)
+    {
+        // only want when players breed animals
+        if (!(event.getBreeder() instanceof Player))
+            return;
+
+        Player player = (Player) event.getBreeder();
+
+        int rep = god.getPlayerReputation(player);
+
+        if (rep > 5)
+            rewardPlayer(player);
+        else
+            praisePlayer(player);
+    }
+
+    /*
+    @EventHandler
+    public void onBlockGrowEvent(BlockGrowEvent event)
+    {
+
+    }
+     */
 
     @Override
     public boolean punishPlayer(Player player)

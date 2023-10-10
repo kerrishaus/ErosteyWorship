@@ -1,5 +1,6 @@
 package com.kerrishaus.ErosteyWorship.gods.traits;
 
+import com.kerrishaus.ErosteyWorship.events.PlayerPraiseEvent;
 import com.kerrishaus.ErosteyWorship.events.PlayerPunishEvent;
 import com.kerrishaus.ErosteyWorship.events.PlayerWarnEvent;
 import com.kerrishaus.ErosteyWorship.gods.God;
@@ -59,8 +60,15 @@ public abstract class Trait implements Listener
     {
         System.out.println("Praising player");
 
-        player.sendTitle(null, god.name + " is pleased with your actions.", 10, 70, 20);
+        PlayerPraiseEvent praiseEvent = new PlayerPraiseEvent(this.god, player);
+        this.pluginManager.callEvent(praiseEvent);
 
+        if (praiseEvent.isCancelled())
+            return false;
+
+        god.increasePlayerReputation(player, 1);
+
+        player.sendTitle(null, god.name + " is pleased with your actions.", 10, 70, 20);
         return true;
     }
 
@@ -68,8 +76,15 @@ public abstract class Trait implements Listener
     {
         System.out.println("Rewarding player");
 
-        player.sendTitle(null, god.name + " is very pleased with your actions.", 10, 70, 20);
+        PlayerPraiseEvent praiseEvent = new PlayerPraiseEvent(this.god, player);
+        this.pluginManager.callEvent(praiseEvent);
 
+        if (praiseEvent.isCancelled())
+            return false;
+
+        god.increasePlayerReputation(player, 2);
+
+        player.sendTitle(null, god.name + " is very pleased with your actions.", 10, 70, 20);
         return true;
     }
 }

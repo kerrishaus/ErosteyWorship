@@ -1,36 +1,71 @@
 package com.kerrishaus.ErosteyWorship.gods.traits;
 
+import com.kerrishaus.ErosteyWorship.events.PlayerPunishEvent;
+import com.kerrishaus.ErosteyWorship.events.PlayerWarnEvent;
+import com.kerrishaus.ErosteyWorship.gods.God;
+import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 
 public abstract class Trait implements Listener
 {
-    public Trait(PluginManager pluginManager, Plugin plugin)
+    God god;
+    PluginManager pluginManager;
+    Plugin        plugin;
+
+    public Trait(God god, PluginManager pluginManager, Plugin plugin)
     {
+        this.god           = god;
+        this.pluginManager = pluginManager;
+        this.plugin        = plugin;
+
         pluginManager.registerEvents(this, plugin);
     }
 
-    //public abstract void tick();
-
-    public void warnPlayer()
+    public boolean warnPlayer(Player player)
     {
+        System.out.println("Warning player");
 
+        PlayerWarnEvent punishEvent = new PlayerWarnEvent(this.god, player);
+        this.pluginManager.callEvent(punishEvent);
+
+        if (punishEvent.isCancelled())
+            return false;
+
+        god.decreasePlayerReputation(player, 1);
+
+        player.sendMessage(god.name + " is displeased with your actions.");
+        return true;
     }
 
-    public void punishPlayer()
+    public boolean punishPlayer(Player player)
     {
+        System.out.println("Punishing player");
 
+        PlayerPunishEvent punishEvent = new PlayerPunishEvent(this.god, player);
+        this.pluginManager.callEvent(punishEvent);
+
+        if (punishEvent.isCancelled())
+            return false;
+
+        god.decreasePlayerReputation(player, 2);
+
+        player.sendMessage(god.name + " is very displeased with your actions.");
+        return true;
     }
 
-    public void praisePlayer()
+    public boolean praisePlayer(Player player)
     {
+        player.sendMessage(god.name + " is pleased with your actions.");
 
+        return true;
     }
 
-    public void rewardPlayer()
+    public boolean rewardPlayer(Player player)
     {
+        player.sendMessage(god.name + " is very pleased with your actions.");
 
+        return true;
     }
 }

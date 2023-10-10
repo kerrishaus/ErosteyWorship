@@ -10,7 +10,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class ErosteyWorship extends JavaPlugin
 {
@@ -20,8 +19,6 @@ public class ErosteyWorship extends JavaPlugin
     public void onEnable()
     {
         this.saveDefaultConfig();
-
-        //getServer().getPluginManager().registerEvents(this, this);
 
         PluginManager pluginManager = this.getServer().getPluginManager();
 
@@ -38,9 +35,9 @@ public class ErosteyWorship extends JavaPlugin
                 {
                     getLogger().info("Loading god " + godName + ".");
 
-                    List<String> traitNames = this.getConfig().getStringList("gods." + godName + ".traits");
+                    God newGod = new God(godName);
 
-                    List<Trait> traits = new ArrayList<Trait>();
+                    List<String> traitNames = this.getConfig().getStringList("gods." + godName + ".traits");
 
                     for (String trait : traitNames)
                     {
@@ -48,7 +45,7 @@ public class ErosteyWorship extends JavaPlugin
                         {
                             case "Environmentalist":
                             {
-                                traits.add(new EnvironmentalistTrait(pluginManager, this));
+                                newGod.traits.add(new EnvironmentalistTrait(newGod, pluginManager, this));
                                 break;
                             }
                             default:
@@ -66,38 +63,14 @@ public class ErosteyWorship extends JavaPlugin
                         getLogger().info("Trait" + trait + " assigned to god " + godName + ".");
                     }
 
-                    getLogger().info("Loaded god " + godName + " with " + traits.size() + " traits.");
+                    getLogger().info("Loaded god " + godName + " with " + newGod.traits.size() + " traits.");
 
-                    this.gods.add(new God(godName, traits));
+                    this.gods.add(newGod);
                 }
                 else
                     getLogger().warning("gods." + godName + " does not exist in config, but it should have.");
             }
         }
-
-        /*
-        List<?> savedGods = this.getConfig().getList("gods");
-
-        if (savedGods != null)
-        {
-            getLogger().info(savedGods.toString());
-
-            PluginManager pm = getServer().getPluginManager();
-
-            for (int i = 0; i < 4; i++)
-            {
-                Trait trait = new EnvironmentalistTrait(pm, this);
-
-                List<Trait> traits = new ArrayList<>();
-                traits.add(trait);
-
-                God newGod = new God(traits);
-                gods.add(newGod);
-            }
-        }
-        else
-            getLogger().info("No gods saved in config to load.");
-         */
 
         getLogger().info("ErosteyWorship enabled.");
     }

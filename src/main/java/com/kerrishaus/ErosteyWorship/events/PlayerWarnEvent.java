@@ -1,5 +1,7 @@
 package com.kerrishaus.ErosteyWorship.events;
 
-public class PlayerWarnEvent
+import org.bukkit.event.Event;
+
+public class PlayerWarnEvent extends ErosteyEvent
 {
 }

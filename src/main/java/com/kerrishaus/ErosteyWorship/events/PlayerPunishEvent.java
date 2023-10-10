@@ -1,5 +1,5 @@
 package com.kerrishaus.ErosteyWorship.events;
 
-public class PlayerPunishEvent
+public class PlayerPunishEvent extends ErosteyEvent
 {
 }

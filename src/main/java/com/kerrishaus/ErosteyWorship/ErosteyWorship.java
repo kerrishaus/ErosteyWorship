@@ -1,5 +1,3 @@
-// Version 1.2
-
 package com.kerrishaus.ErosteyWorship;
 
 import org.bukkit.event.Listener;
@@ -12,12 +10,12 @@ public class ErosteyWorship extends JavaPlugin implements Listener
     {
         //getServer().getPluginManager().registerEvents(this, this);
 
-        getLogger().info("DolphinsGrace enabled.");
+        getLogger().info("ErosteyWorship enabled.");
     }
 
     @Override
     public void onDisable()
     {
-        getLogger().info("DolphinsGrace disabled.");
+        getLogger().info("ErosteyWorship disabled.");
     }
 }

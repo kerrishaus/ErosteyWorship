@@ -1,8 +1,8 @@
-package com.kerrishaus.ErosteyWorship.Gods.Traits;
+package com.kerrishaus.ErosteyWorship.gods.traits;
 
 public abstract class Trait
 {
-    public abstract void tick();
+    //public abstract void tick();
 
     public void warnPlayer()
     {

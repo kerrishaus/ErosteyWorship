@@ -1,0 +1,34 @@
+main: com.kerrishaus.ErosteyWorship.ErosteyWorship
+name: ErosteyWorship
+version: '1.0'
+description: Gods
+#load: POSTWORLD
+author: kennyrkun
+website: kerrishaus.com
+api-version: 1.20
+#prefix: Testing
+#depend:
+#- WorldEdit
+#- Towny
+#softdepend:
+#- FAWE
+#loadbefore:
+#- Essentials
+#commands:
+#  foo:
+#    description: Foo command
+#    aliases:
+#    - foobar
+#    - fubar
+#    permission: test.foo
+#    permission-message: You do not have permission!
+#    usage: /<command> [test|stop]
+#permissions:
+#  test.foo:
+#    description: Allows foo command
+#    default: op
+#  test.*:
+#    description: Wildcard permission
+#    default: op
+#    children:
+#      test.foo: true

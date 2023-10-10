@@ -35,7 +35,7 @@ public abstract class Trait implements Listener
 
         god.decreasePlayerReputation(player, 1);
 
-        player.sendMessage(god.name + " is displeased with your actions.");
+        player.sendTitle(null,god.name + " is displeased with your actions.", 10, 70, 20);
         return true;
     }
 
@@ -51,7 +51,7 @@ public abstract class Trait implements Listener
 
         god.decreasePlayerReputation(player, 2);
 
-        player.sendMessage(god.name + " is very displeased with your actions.");
+        player.sendTitle(null, god.name + " is very displeased with your actions.", 10, 70, 20);
         return true;
     }
 
@@ -59,7 +59,7 @@ public abstract class Trait implements Listener
     {
         System.out.println("Praising player");
 
-        player.sendMessage(god.name + " is pleased with your actions.");
+        player.sendTitle(null, god.name + " is pleased with your actions.", 10, 70, 20);
 
         return true;
     }
@@ -68,7 +68,7 @@ public abstract class Trait implements Listener
     {
         System.out.println("Rewarding player");
 
-        player.sendMessage(god.name + " is very pleased with your actions.");
+        player.sendTitle(null, god.name + " is very pleased with your actions.", 10, 70, 20);
 
         return true;
     }

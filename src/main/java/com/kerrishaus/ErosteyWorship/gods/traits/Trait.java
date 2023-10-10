@@ -2,6 +2,7 @@ package com.kerrishaus.ErosteyWorship.gods.traits;
 
 import com.kerrishaus.ErosteyWorship.events.PlayerPraiseEvent;
 import com.kerrishaus.ErosteyWorship.events.PlayerPunishEvent;
+import com.kerrishaus.ErosteyWorship.events.PlayerRewardEvent;
 import com.kerrishaus.ErosteyWorship.events.PlayerWarnEvent;
 import com.kerrishaus.ErosteyWorship.gods.God;
 import org.bukkit.entity.Player;
@@ -76,10 +77,10 @@ public abstract class Trait implements Listener
     {
         System.out.println("Rewarding player");
 
-        PlayerPraiseEvent praiseEvent = new PlayerPraiseEvent(this.god, player);
-        this.pluginManager.callEvent(praiseEvent);
+        PlayerRewardEvent rewardEvent = new PlayerRewardEvent(this.god, player);
+        this.pluginManager.callEvent(rewardEvent);
 
-        if (praiseEvent.isCancelled())
+        if (rewardEvent.isCancelled())
             return false;
 
         god.increasePlayerReputation(player, 2);

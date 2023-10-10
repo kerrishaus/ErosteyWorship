@@ -1,8 +1,10 @@
 package com.kerrishaus.ErosteyWorship.gods.traits;
 
+import com.kerrishaus.ErosteyWorship.events.PlayerPraiseEvent;
 import com.kerrishaus.ErosteyWorship.events.PlayerPunishEvent;
 import com.kerrishaus.ErosteyWorship.gods.God;
 import org.bukkit.entity.Ageable;
+import org.bukkit.entity.Mob;
 import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -24,17 +26,27 @@ public class EnvironmentalistTrait extends Trait
     @EventHandler
     public void onEntityDeathEvent(EntityDeathEvent event)
     {
-        // we don't care about hostile mobs
-        // TODO: maybe change this to only attacking mobs
-        if (event.getEntity() instanceof Monster)
+        if (!(event.getEntity() instanceof Mob))
             return;
 
         // if it's null then it wasn't killed by a player
         if (event.getEntity().getKiller() == null)
             return;
 
+        // cast it to Mob so we can get its target
+        Mob deadEntity = (Mob) event.getEntity();
+
+        // if the dead entity's target was a peaceful entity or a player
+        // then it's okay that we killed it
+        if (!(deadEntity.getTarget() instanceof Monster) ||
+            deadEntity.getTarget() instanceof Player)
+            return;
+
+        // if we got this far, then we are mad at the player for killing someone innocent.
+
         Player killer = event.getEntity().getKiller();
 
+        // killer won't be null becasue it's checked higher above
         int rep = god.getPlayerReputation(killer);
 
         if (rep > -5)

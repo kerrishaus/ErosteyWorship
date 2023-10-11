@@ -12,6 +12,8 @@ import org.bukkit.plugin.PluginManager;
 
 public abstract class Trait implements Listener
 {
+    public String name;
+
     God god;
     PluginManager pluginManager;
     Plugin        plugin;

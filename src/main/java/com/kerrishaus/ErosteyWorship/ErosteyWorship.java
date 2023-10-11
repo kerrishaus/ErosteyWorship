@@ -1,5 +1,7 @@
 package com.kerrishaus.ErosteyWorship;
 
+import com.kerrishaus.ErosteyWorship.commands.GodCommand;
+import com.kerrishaus.ErosteyWorship.commands.GodTabCompleter;
 import com.kerrishaus.ErosteyWorship.gods.God;
 import com.kerrishaus.ErosteyWorship.gods.traits.EnvironmentalistTrait;
 import com.kerrishaus.ErosteyWorship.gods.traits.Trait;
@@ -71,6 +73,11 @@ public class ErosteyWorship extends JavaPlugin
                     getLogger().warning("gods." + godName + " does not exist in config, but it should have.");
             }
         }
+
+        this.getCommand("god").setExecutor(new GodCommand());
+        this.getCommand("god").setTabCompleter(new GodTabCompleter());
+        this.getCommand("god").setPermission("erostey.god");
+        this.getCommand("god").setPermissionMessage("You do not have permission.");
 
         getLogger().info("ErosteyWorship enabled.");
     }

@@ -17,11 +17,11 @@ import org.bukkit.plugin.PluginManager;
 
 public class EnvironmentalistTrait extends Trait
 {
-    public String name = "Environmentalist";
-
     public EnvironmentalistTrait(God god, PluginManager pluginManager, Plugin plugin)
     {
         super(god, pluginManager, plugin);
+
+        this.name = "Environmentalist";
     }
 
     // TODO: track time since last kill, and reduce reputation by a multiplier

@@ -1,17 +1,12 @@
 package com.kerrishaus.ErosteyWorship.gods.traits;
 
-import com.kerrishaus.ErosteyWorship.events.PlayerPraiseEvent;
-import com.kerrishaus.ErosteyWorship.events.PlayerPunishEvent;
 import com.kerrishaus.ErosteyWorship.gods.God;
-import org.bukkit.entity.Ageable;
 import org.bukkit.entity.Mob;
 import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.block.BlockGrowEvent;
 import org.bukkit.event.entity.EntityBreedEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 

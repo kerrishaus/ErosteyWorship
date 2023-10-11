@@ -3,6 +3,7 @@ package com.kerrishaus.ErosteyWorship;
 import com.kerrishaus.ErosteyWorship.gods.God;
 import com.kerrishaus.ErosteyWorship.gods.traits.EnvironmentalistTrait;
 import com.kerrishaus.ErosteyWorship.gods.traits.Trait;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
@@ -10,14 +11,19 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class ErosteyWorship extends JavaPlugin
 {
+    public static Logger logger;
+
     public List<God> gods = new ArrayList<>();
 
     @Override
     public void onEnable()
     {
+        ErosteyWorship.logger = Bukkit.getPluginManager().getPlugin("ErosteyWorship").getLogger();
+
         this.saveDefaultConfig();
 
         PluginManager pluginManager = this.getServer().getPluginManager();

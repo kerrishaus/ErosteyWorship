@@ -14,19 +14,18 @@ api-version: 1.20
 #- FAWE
 #loadbefore:
 #- Essentials
-#commands:
-#  foo:
-#    description: Foo command
-#    aliases:
-#    - foobar
-#    - fubar
-#    permission: test.foo
-#    permission-message: You do not have permission!
-#    usage: /<command> [test|stop]
-#permissions:
-#  test.foo:
-#    description: Allows foo command
-#    default: op
+commands:
+  god:
+    description: Manages ErosteyWorship.
+    aliases:
+    - gods
+    permission: erostey.god
+    permission-message: Insufficient permissions. (String from config.)
+    usage: Very carefully.
+permissions:
+  erostey.god:
+    description: Allows god command
+    default: op
 #  test.*:
 #    description: Wildcard permission
 #    default: op

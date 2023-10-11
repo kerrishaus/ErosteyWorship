@@ -1,12 +1,17 @@
+// TODO: good boy points for growing plants with bonemeal
+// TODO: good boy points for growing animals with their item
+
 package com.kerrishaus.ErosteyWorship.gods.traits;
 
+import com.kerrishaus.ErosteyWorship.events.PlayerPraiseEvent;
+import com.kerrishaus.ErosteyWorship.events.PlayerPunishEvent;
 import com.kerrishaus.ErosteyWorship.gods.God;
-import org.bukkit.entity.Mob;
-import org.bukkit.entity.Monster;
-import org.bukkit.entity.Player;
+import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.block.BlockGrowEvent;
 import org.bukkit.event.entity.EntityBreedEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 
@@ -15,36 +20,43 @@ public class EnvironmentalistTrait extends Trait
     public EnvironmentalistTrait(God god, PluginManager pluginManager, Plugin plugin)
     {
         super(god, pluginManager, plugin);
+
+        this.name = "Environmentalist";
     }
 
     // TODO: track time since last kill, and reduce reputation by a multiplier
     @EventHandler
     public void onEntityDeathEvent(EntityDeathEvent event)
     {
-        if (!(event.getEntity() instanceof Mob))
+        // this excludes players from the event
+        // PlayerDeathEvent is handled separately
+        if (!(event.getEntity() instanceof Mob deadEntity))
             return;
 
-        // if it's null then it wasn't killed by a player
-        if (event.getEntity().getKiller() == null)
+        // make sure the entity was killed by a player (null if not)
+        if (deadEntity.getKiller() == null)
             return;
 
-        // cast it to Mob so we can get its target
-        Mob deadEntity = (Mob) event.getEntity();
+        LivingEntity deadEntityTarget = deadEntity.getTarget();
 
-        // if the dead entity's target was a peaceful entity or a player
-        // then it's okay that we killed it
-        if (!(deadEntity.getTarget() instanceof Monster) ||
-            deadEntity.getTarget() instanceof Player)
-            return;
+        if (deadEntityTarget != null)
+        {
+            // if the dead mob was targeting a mob that is not a monster,
+            // or if the dead mob was targeting a player, then it's ok
+            if (!(deadEntityTarget instanceof Monster) ||
+                  deadEntityTarget instanceof Player)
+            {
+                System.out.println("We're okay with this mob dying. " + deadEntity.getType().toString());
+                return;
+            }
+        }
 
         // if we got this far, then we are mad at the player for killing someone innocent.
 
         Player killer = event.getEntity().getKiller();
 
-        // killer won't be null becasue it's checked higher above
-        int rep = god.getPlayerReputation(killer);
-
-        if (rep > -5)
+        // killer won't be null because it's checked higher above
+        if (god.getPlayerReputation(killer) > -5)
             this.warnPlayer(killer);
         else
             this.punishPlayer(killer);
@@ -65,14 +77,10 @@ public class EnvironmentalistTrait extends Trait
     public void onEntityBreedEvent(EntityBreedEvent event)
     {
         // only want when players breed animals
-        if (!(event.getBreeder() instanceof Player))
+        if (!(event.getBreeder() instanceof Player player))
             return;
 
-        Player player = (Player) event.getBreeder();
-
-        int rep = god.getPlayerReputation(player);
-
-        if (rep > 5)
+        if (god.getPlayerReputation(player) > 5)
             rewardPlayer(player);
         else
             praisePlayer(player);
@@ -84,7 +92,7 @@ public class EnvironmentalistTrait extends Trait
     {
 
     }
-     */
+    */
 
     @Override
     public boolean punishPlayer(Player player)

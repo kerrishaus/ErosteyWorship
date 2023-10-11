@@ -5,6 +5,8 @@ import com.kerrishaus.ErosteyWorship.events.PlayerPunishEvent;
 import com.kerrishaus.ErosteyWorship.events.PlayerRewardEvent;
 import com.kerrishaus.ErosteyWorship.events.PlayerWarnEvent;
 import com.kerrishaus.ErosteyWorship.gods.God;
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
@@ -39,7 +41,9 @@ public abstract class Trait implements Listener
 
         god.decreasePlayerReputation(player, 1);
 
-        player.sendTitle(null,god.name + " is displeased with your actions.", 10, 70, 20);
+        String message = god.name + " is displeased with your actions.";
+        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(message));
+
         return true;
     }
 
@@ -55,7 +59,9 @@ public abstract class Trait implements Listener
 
         god.decreasePlayerReputation(player, 2);
 
-        player.sendTitle(null, god.name + " is very displeased with your actions.", 10, 70, 20);
+        String message = god.name + " is very displeased with your actions.";
+        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(message));
+
         return true;
     }
 
@@ -71,7 +77,9 @@ public abstract class Trait implements Listener
 
         god.increasePlayerReputation(player, 1);
 
-        player.sendTitle(null, god.name + " is pleased with your actions.", 10, 70, 20);
+        String message = god.name + " is pleased with your actions.";
+        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(message));
+
         return true;
     }
 
@@ -87,7 +95,9 @@ public abstract class Trait implements Listener
 
         god.increasePlayerReputation(player, 2);
 
-        player.sendTitle(null, god.name + " is very pleased with your actions.", 10, 70, 20);
+        String message = god.name + " is very displeased with your actions.";
+        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(message));
+
         return true;
     }
 }
